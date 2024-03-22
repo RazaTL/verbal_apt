@@ -1,0 +1,12 @@
+#!/bin/sh
+'''exec' "/Users/raza/Desktop/Hot Reload/gpt-4-assistant/bin/python" "$0" "$@"
+' '''
+# -*- coding: utf-8 -*-
+import re
+import sys
+
+from openai.cli import main
+
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())

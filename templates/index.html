@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="#">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Input</title>
+    <script src="http://127.0.0.1:5000/recordAndSaveAudio.js "></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <h1>User Input Form</h1>
+    <form id="userInputForm">
+        <label for="user_input">Enter your input:</label><br>
+        <input type="text" id="user_input" name="user_input"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <div id="chatLog"></div>
+
+    <script>
+        $(document).ready(function() {
+            $("#userInputForm").submit(function(event) {
+                event.preventDefault(); // Prevent the form from submitting
+
+                // Get user input
+                var userInput = $("#user_input").val();
+
+                // Clear the input field
+                $("#user_input").val("");
+
+                // Display user input in the chat log
+                $("#chatLog").append("<p>You: " + userInput + "</p>");
+
+                // Send the user input to the server
+                $.ajax({
+                    url: "/",
+                    type: "POST",
+                    data: {user_input: userInput},
+                    success: function(response) {
+                        // Display server response in the chat log
+                        $("#chatLog").append("<p>Question: " + response[0] + "</p>");
+                        console.log([response[2],response[4],response[6]])
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
