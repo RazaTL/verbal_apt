@@ -1,8 +1,9 @@
 from openai import OpenAI
 from typing_extensions import override
 import time
+import os
 
-client = OpenAI(api_key='')
+client = OpenAI(api_key=os.environ['OPEN_AI_KEY'])
 
 def run_audio(audio):
     audio_file= open("", "rb")
