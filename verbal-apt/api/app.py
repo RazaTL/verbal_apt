@@ -18,12 +18,12 @@ def upload_audio():
 @app.route('/')
 def index():
     return render_template('index.html')
-
+ 
 
 @app.route('/', methods=['POST'])
 def process():
-    user_input = request.form['user_input']
-    bot_response = run(user_input)
+    user_request = request.json
+    bot_response = run(user_request)
     return bot_response #jsonify({'response': bot_response})
 
 # @app.route('/')

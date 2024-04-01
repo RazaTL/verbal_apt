@@ -1,8 +1,9 @@
 from openai import OpenAI
 from typing_extensions import override
 import time
+import os
 
-client = OpenAI(api_key='')
+client = OpenAI(api_key=os.environ['OPEN_AI_KEY'])
 
 def run_audio(audio):
     audio_file= open("", "rb")
@@ -12,16 +13,18 @@ def run_audio(audio):
     )
     print(transcription.text)
 
-def run (inp):
+def run (req):
 
     assistant = client.beta.assistants.retrieve('asst_oZdMzOOHGLxc4sA0pup9bc71')
 
     thread = client.beta.threads.create()
 
+    print(f'processing user input: {req["user_input"]}')
+
     message = client.beta.threads.messages.create(
         thread_id=thread.id,
         role="user",
-        content=inp
+        content=req["user_input"]
     )
 
     run = client.beta.threads.runs.create(
